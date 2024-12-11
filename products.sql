@@ -1,4 +1,3 @@
--- New database schema for an online store
 CREATE TABLE `products` (
     `id` INT AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL DEFAULT '',
@@ -8,25 +7,25 @@ CREATE TABLE `products` (
     PRIMARY KEY (`id`)
 );
 
--- Procedure to create a new product
+-- добавить новый продукт
 CREATE PROCEDURE spCreateProduct(IN name VARCHAR(255), IN description TEXT, IN price DECIMAL(10, 2))
 BEGIN
     INSERT INTO `products`(`name`, `description`, `price`) VALUES(name, description, price);
 END;
 
--- Procedure to read all products
+-- читает все продукты
 CREATE PROCEDURE spReadProducts()
 BEGIN
     SELECT `id`, `name`, `description`, `price`, UNIX_TIMESTAMP(`created`) as `created` FROM `products`;
 END;
 
--- Procedure to read a product by ID
+-- читает по айди
 CREATE PROCEDURE spReadProductById(IN idx INT)
 BEGIN
     SELECT `id`, `name`, `description`, `price` FROM `products` WHERE `id` = idx;
 END;
 
--- Procedure to update a product
+-- обновить продукт
 CREATE PROCEDURE spUpdateProduct(IN idx INT, IN name VARCHAR(255), IN description TEXT, IN price DECIMAL(10, 2))
 BEGIN
     UPDATE `products` SET
